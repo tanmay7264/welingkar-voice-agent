@@ -11,6 +11,15 @@ test('the installed Vapi SDK resolves to the callable client constructor',()=>{
   assert.equal(typeof Vapi.prototype.stop,'function');
 });
 
+test('unsupported 3D rendering keeps the decorative fallback without throwing',()=>{
+  let fallbackRetained=false;
+  const source=readFileSync(new URL('../src/visual.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
+  const host={classList:{remove(name){fallbackRetained=name==='webgl-ready';}}};
+  const THREE={WebGLRenderer:class{constructor(){throw new Error('WebGL is unavailable');}}};
+  assert.doesNotThrow(()=>vm.runInNewContext(source,{THREE,document:{getElementById(id){return id==='visual'?host:{};}}}));
+  assert.equal(fallbackRetained,true);
+});
+
 function setup({noMic=false,reject=false}={}) {
   class Element {
     constructor() {this.children=[];this.listeners={};this.attributes={};this.classList={toggle(){},add(){},remove(){}};this.hidden=false;}
