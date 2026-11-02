@@ -1,5 +1,6 @@
 import Vapi from './vapi-client.js';
 import config from './config.json';
+import {callErrorMessage} from './call-error.js';
 
 const byId = (id) => document.getElementById(id);
 const ui = Object.fromEntries(['start','start-label','end','mute','state','voice-status','visual','transcript','empty','timer','error','download','suggestion','transcript-note','share','toast'].map(id => [id, byId(id)]));
@@ -29,6 +30,7 @@ function setState(next) {
 function showError(message) {
   ui.error.textContent = message;
   ui.error.hidden = false;
+  ui['start-label'].textContent = 'Try connecting again';
 }
 
 function endLocally() {
@@ -56,14 +58,24 @@ ui.start.addEventListener('click', async () => {
     const call = await vapi.start(config.assistantId);
     if (call === null) {
       endLocally();
-      if (ui.error.hidden) showError('The call could not connect. Check microphone permission and the Vapi account balance, then try again.');
+      showError(ui.error.hidden ? callErrorMessage(null) : ui.error.textContent);
       return;
     }
     callId = call?.id;
   } catch (error) {
     endLocally();
-    showError(error?.name === 'NotAllowedError' ? 'Microphone permission was denied. Allow microphone access for this site in your browser, then try again.' : 'The voice call could not connect. Check microphone permission, your internet connection and Vapi credits, then try again.');
+    if (ui.error.hidden) showError(callErrorMessage(error));
   }
+});
+
+vapi.on('call-start-progress', ({stage, status}) => {
+  if (state !== 'connecting' || status !== 'started') return;
+  const messages = {
+    'web-call-creation': 'Microphone ready. Opening your secure voice session…',
+    'daily-call-object-creation': 'Voice session ready. Preparing your audio connection…',
+    'daily-call-join': 'Connecting live audio. This can take a few seconds…',
+  };
+  if (messages[stage]) ui['voice-status'].textContent = messages[stage];
 });
 
 vapi.on('call-start', () => {
@@ -99,10 +111,10 @@ vapi.on('speech-end', () => {
 });
 vapi.on('call-end', endLocally);
 vapi.on('error', (error) => {
+  if (error?.type === 'audio-processing-error') return;
   if (state === 'ending') { endLocally(); return; }
   endLocally();
-  const denied = /permission|notallowed|microphone/i.test(String(error?.errorMsg || error?.message || ''));
-  showError(denied ? 'Microphone access is blocked. Allow it in your browser’s site settings, then try again.' : 'Vapi could not complete the call. Check your connection and Vapi credits, then try again.');
+  showError(callErrorMessage(error));
 });
 vapi.on('message', message => {
   if (message.type !== 'transcript' || !message.transcript?.trim()) return;

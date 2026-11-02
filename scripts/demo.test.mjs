@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import Vapi from '../src/vapi-client.js';
+import {callErrorMessage} from '../src/call-error.js';
 
 test('the installed Vapi SDK resolves to the callable client constructor',()=>{
   assert.equal(typeof Vapi,'function');
@@ -31,7 +32,7 @@ function setup({noMic=false,reject=false}={}) {
     setMuted(value){this.muted=value;}
   }
   const source=readFileSync(new URL('../src/app.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
-  vm.runInNewContext(source,{Vapi,config:{publicKey:'test-public',assistantId:'test-assistant'},document:{getElementById(id){if(!elements.has(id))elements.set(id,new Element());return elements.get(id);},querySelectorAll(){return[];},createElement(){return new Element();},createTextNode(text){return {text};}},navigator:{mediaDevices:noMic?undefined:{getUserMedia(){}}},window:{addEventListener(){}},setInterval(){return 1;},clearInterval(){},setTimeout(){},Date,URL,Blob});
+  vm.runInNewContext(source,{Vapi,callErrorMessage,config:{publicKey:'test-public',assistantId:'test-assistant'},document:{getElementById(id){if(!elements.has(id))elements.set(id,new Element());return elements.get(id);},querySelectorAll(){return[];},createElement(){return new Element();},createTextNode(text){return {text};}},navigator:{mediaDevices:noMic?undefined:{getUserMedia(){}}},window:{addEventListener(){}},setInterval(){return 1;},clearInterval(){},setTimeout(){},Date,URL,Blob});
   return {client,el:id=>elements.get(id)};
 }
 
@@ -53,6 +54,28 @@ test('prevents duplicate starts, renders transcript text safely, and exports onl
   assert.equal(el('mute').attributes['aria-pressed'],'false');
 });
 
+test('audio connection failures expose the correct cause and allow another attempt',async()=>{
+  const {client,el}=setup();
+  await el('start').listeners.click();
+  client.events['call-start-progress']({stage:'daily-call-join',status:'started'});
+  assert.match(el('voice-status').textContent,/Connecting live audio/);
+  client.events.error({type:'daily-call-join-error',error:{message:'websocket connection timed out'}});
+  assert.match(el('error').textContent,/live audio connection failed/);
+  assert.doesNotMatch(el('error').textContent,/balance|credits/);
+  assert.equal(el('start-label').textContent,'Try connecting again');
+  assert.equal(el('start').disabled,false);
+  await el('start').listeners.click();
+  assert.equal(client.starts,2);
+});
+
+test('nested microphone errors remain actionable and optional audio processing errors do not end a call',()=>{
+  assert.match(callErrorMessage({error:{name:'NotAllowedError',message:'Permission denied'}}),/Microphone access is blocked/);
+  const {client,el}=setup();
+  client.events['call-start']();
+  client.events.error({type:'audio-processing-error',error:{message:'Krisp initialization canceled'}});
+  assert.equal(el('end').hidden,false);
+});
+
 test('unsupported microphone and connection failures leave an actionable retry state',async()=>{
   const missing=setup({noMic:true});
   await missing.el('start').listeners.click();
@@ -62,5 +85,5 @@ test('unsupported microphone and connection failures leave an actionable retry s
   await failed.el('start').listeners.click();
   assert.equal(failed.el('start').disabled,false);
   assert.equal(failed.el('error').hidden,false);
-  assert.match(failed.el('error').textContent,/could not connect/);
+  assert.match(failed.el('error').textContent,/live audio connection failed/);
 });

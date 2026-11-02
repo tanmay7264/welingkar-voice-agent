@@ -7,7 +7,7 @@
   <meta name="description" content="Try Aanya, a campus recruitment voice assistant demo for the Welingkar Mumbai placement team. Play a company recruiter and have a live conversation.">
   <title>Welingkar · Campus Connect voice demo</title>
   <link rel="stylesheet" href="/style.css">
-  <script type="module" src="/app.js"></script>
+  <script type="module" src="/app.js?v=3"></script>
 </head>
 <body>
   <header class="topbar"><a class="brand" href="/" aria-label="Campus Connect home"><span class="brand-symbol" aria-hidden="true">cc</span>campus<span class="brand-light">connect</span></a><div class="header-right"><span class="demo-pill">LIVE DEMO</span><button class="text-button" id="share">Share demo <span aria-hidden="true">↗</span></button></div></header>
@@ -21,6 +21,7 @@
         <p class="voice-status" id="voice-status" role="status" aria-live="polite">You play the company recruiter. Aanya starts the conversation.</p>
         <div class="call-controls"><button id="start" class="primary-button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0014 0v-2M12 19v3m-4 0h8"/></svg><span id="start-label">Talk to Aanya</span></button><button id="mute" class="secondary-button" hidden aria-pressed="false">Mute mic</button><button id="end" class="end-button" hidden>End call</button></div>
         <div id="call-meta" class="call-meta">Browser call <span>·</span> No phone number needed <span>·</span> Up to 5 minutes</div>
+        <p class="hosted-demo">Connection trouble? <a href="https://vapi.ai?demo=true&amp;shareKey=df5fb2d8-23a3-48a9-b078-c1db357b929d&amp;assistantId=b11ea966-52ed-44d7-bf3b-ffeabc0396ad" target="_blank" rel="noopener noreferrer">Open Vapi demo ↗</a></p>
         <p class="error" id="error" role="alert" hidden></p>
         <div class="privacy-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L4 6v6c0 5 8 9 8 9s8-4 8-9V6z"/><path d="m8 12 3 3 5-6"/></svg><p>Microphone access is needed. Audio recording is off; Vapi retains call transcripts for review. Use sample recruiter details. Demo usage draws from your Vapi credits.</p></div>
       </section>
