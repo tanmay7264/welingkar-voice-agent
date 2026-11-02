@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#172d32">
+  <meta name="description" content="Try Aanya, a campus recruitment voice assistant demo for the Welingkar Mumbai placement team. Play a company recruiter and have a live conversation.">
+  <title>Welingkar · Campus Connect voice demo</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/" aria-label="Campus Connect home"><span class="brand-symbol" aria-hidden="true">cc</span>campus<span class="brand-light">connect</span></a><div class="header-right"><span class="demo-pill">LIVE DEMO</span><button class="text-button" id="share">Share demo <span aria-hidden="true">↗</span></button></div></header>
+  <main>
+    <div class="intro"><p class="eyebrow">WELINGKAR, MUMBAI · PLACEMENT OUTREACH</p><h1>The next campus partnership <br>starts with a conversation.</h1><p class="lede">Meet Aanya, your AI recruitment outreach assistant. Step into a recruiter's shoes and hear how she opens doors for your placement team.</p></div>
+    <div class="workspace">
+      <section class="voice-panel" aria-labelledby="agent-heading">
+        <div class="panel-top"><span class="small-label">YOUR OUTREACH ASSISTANT</span><span class="state-pill" id="state"><i></i>Ready to connect</span></div>
+        <div class="agent-visual" id="visual"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="voice-orb" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+        <div class="agent-name"><h2 id="agent-heading">Aanya</h2><span>Welingkar's AI placement assistant</span></div>
+        <p class="voice-status" id="voice-status" role="status" aria-live="polite">You play the company recruiter. Aanya starts the conversation.</p>
+        <div class="call-controls"><button id="start" class="primary-button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0014 0v-2M12 19v3m-4 0h8"/></svg><span id="start-label">Talk to Aanya</span></button><button id="mute" class="secondary-button" hidden aria-pressed="false">Mute mic</button><button id="end" class="end-button" hidden>End call</button></div>
+        <div id="call-meta" class="call-meta">Browser call <span>·</span> No phone number needed <span>·</span> Up to 5 minutes</div>
+        <p class="error" id="error" role="alert" hidden></p>
+        <div class="privacy-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L4 6v6c0 5 8 9 8 9s8-4 8-9V6z"/><path d="m8 12 3 3 5-6"/></svg><p>Microphone access is needed. Audio recording is off; Vapi retains call transcripts for review. Use sample recruiter details. Demo usage draws from your Vapi credits.</p></div>
+      </section>
+      <section class="conversation-panel" aria-labelledby="conversation-heading"><div class="transcript-header"><div><span class="small-label">THE CONVERSATION</span><h2 id="conversation-heading">A real conversation.<br>Your words, her response.</h2></div><span id="timer" class="timer" aria-label="Call duration">00:00</span></div>
+        <div id="transcript" class="transcript" role="log" aria-label="Live conversation transcript" aria-live="polite" aria-relevant="additions text"><div id="empty" class="empty-transcript"><span class="quote-mark" aria-hidden="true">“</span><p>Curious how she'd handle your next call?</p><span>Start a conversation, then try one of these lines.</span><div class="scenario-list"><button class="scenario" data-prompt="Yes, I'm the HR manager at a retail company. We're looking for management trainees."><span>01</span><div><strong>The interested recruiter</strong><span>“We're looking for management trainees.”</span></div><span aria-hidden="true">↗</span></button><button class="scenario" data-prompt="I'm in the middle of a meeting. Can you call me tomorrow afternoon?"><span>02</span><div><strong>The busy hiring manager</strong><span>“Can you call me tomorrow afternoon?”</span></div><span aria-hidden="true">↗</span></button><button class="scenario" data-prompt="Could you send me a brochure first? Which programmes are available?"><span>03</span><div><strong>The brochure request</strong><span>“Send me some details first.”</span></div><span aria-hidden="true">↗</span></button></div></div></div>
+        <div id="suggestion" class="suggestion" hidden></div><div class="transcript-footer"><span id="transcript-note"><i></i>Live captions appear here when you connect</span><button id="download" class="text-button" disabled>Download transcript ↓</button></div>
+      </section>
+    </div>
+    <section class="context" aria-labelledby="context-title"><div><p class="eyebrow">BUILT FOR YOUR PLACEMENT TEAM</p><h2 id="context-title">An invitation, thoughtfully handled.</h2><p>Aanya introduces the college, understands hiring needs, handles objections, and captures the next step for a human coordinator.</p></div><div class="context-details"><details><summary>8 full-time PGDM programmes <span>+</span></summary><div class="programme-grid"><span>General <b>180 seats</b></span><span>E-Business <b>120 seats</b></span><span>Research & Business Analytics <b>120 seats</b></span><span>Media & Entertainment <b>60 seats</b></span><span>Business Design <b>60 seats</b></span><span>Healthcare <b>60 seats</b></span><span>Retail Management <b>60 seats</b></span><span>Rural Management <b>60 seats</b></span></div><p class="detail-note">User-provided Mumbai campus programme capacity. These counts do not represent confirmed candidates available for hiring.</p></details><details><summary>Recruitment timelines & demo limits <span>+</span></summary><p class="detail-note">Indicative, unconfirmed: 2025–27 batch for final placements and 2026–28 batch for summer internships in 2027. The placement team must confirm dates and availability.</p><p class="detail-note">This demo captures conversation details. It does not send emails, book meetings, or call companies. Sample contacts: placements@example.com and +91 00000 00000; neither is a verified Welingkar contact.</p></details></div></section>
+  </main>
+  <footer><span>Campus Connect <span class="footer-dot">/</span> Welingkar, Mumbai</span><span>Concept demo for the placement team · Powered by Vapi</span></footer>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
