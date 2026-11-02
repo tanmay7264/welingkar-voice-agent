@@ -111,7 +111,7 @@ vapi.on('speech-end', () => {
 });
 vapi.on('call-end', endLocally);
 vapi.on('error', (error) => {
-  if (error?.type === 'audio-processing-error') return;
+  if (error?.type === 'audio-processing-setup-error') return;
   if (state === 'ending') { endLocally(); return; }
   endLocally();
   showError(callErrorMessage(error));

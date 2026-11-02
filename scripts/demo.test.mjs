@@ -72,7 +72,7 @@ test('nested microphone errors remain actionable and optional audio processing e
   assert.match(callErrorMessage({error:{name:'NotAllowedError',message:'Permission denied'}}),/Microphone access is blocked/);
   const {client,el}=setup();
   client.events['call-start']();
-  client.events.error({type:'audio-processing-error',error:{message:'Krisp initialization canceled'}});
+  client.events.error({type:'audio-processing-setup-error',error:{message:'Krisp initialization canceled'}});
   assert.equal(el('end').hidden,false);
 });
 
