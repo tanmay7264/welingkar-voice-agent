@@ -2,6 +2,13 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
+import Vapi from '../src/vapi-client.js';
+
+test('the installed Vapi SDK resolves to the callable client constructor',()=>{
+  assert.equal(typeof Vapi,'function');
+  assert.equal(typeof Vapi.prototype.start,'function');
+  assert.equal(typeof Vapi.prototype.stop,'function');
+});
 
 function setup({noMic=false,reject=false}={}) {
   class Element {

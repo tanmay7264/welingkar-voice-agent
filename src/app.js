@@ -1,4 +1,4 @@
-import Vapi from '@vapi-ai/web';
+import Vapi from './vapi-client.js';
 import config from './config.json';
 
 const byId = (id) => document.getElementById(id);
