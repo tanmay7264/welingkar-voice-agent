@@ -168,7 +168,7 @@ ui.download.addEventListener('click', () => {
 });
 ui.share.addEventListener('click', async () => {
   try {
-    await navigator.clipboard.writeText(window.location.origin);
+    await navigator.clipboard.writeText(new URL('.', window.location.href).href);
     ui.toast.textContent = 'Demo link copied. Share it with your placement team.';
     ui.toast.hidden = false;
     setTimeout(() => { ui.toast.hidden = true; }, 4000);

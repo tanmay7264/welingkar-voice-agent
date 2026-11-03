@@ -31,6 +31,7 @@ function setup({noMic=false,reject=false}={}) {
     focus(){}
   }
   const elements=new Map();
+  let copiedUrl;
   let client;
   class Vapi {
     constructor(){client=this;this.events={};this.starts=0;this.muted=false;}
@@ -41,9 +42,15 @@ function setup({noMic=false,reject=false}={}) {
     setMuted(value){this.muted=value;}
   }
   const source=readFileSync(new URL('../src/app.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
-  vm.runInNewContext(source,{Vapi,callErrorMessage,config:{publicKey:'test-public',assistantId:'test-assistant'},document:{getElementById(id){if(!elements.has(id))elements.set(id,new Element());return elements.get(id);},querySelectorAll(){return[];},createElement(){return new Element();},createTextNode(text){return {text};}},navigator:{mediaDevices:noMic?undefined:{getUserMedia(){}}},window:{addEventListener(){}},setInterval(){return 1;},clearInterval(){},setTimeout(){},Date,URL,Blob});
-  return {client,el:id=>elements.get(id)};
+  vm.runInNewContext(source,{Vapi,callErrorMessage,config:{publicKey:'test-public',assistantId:'test-assistant'},document:{getElementById(id){if(!elements.has(id))elements.set(id,new Element());return elements.get(id);},querySelectorAll(){return[];},createElement(){return new Element();},createTextNode(text){return {text};}},navigator:{mediaDevices:noMic?undefined:{getUserMedia(){}},clipboard:{async writeText(value){copiedUrl=value;}}},window:{location:{href:'https://example.github.io/welingkar-voice-agent/?demo=1#page-title'},addEventListener(){}},setInterval(){return 1;},clearInterval(){},setTimeout(){},Date,URL,Blob});
+  return {client,el:id=>elements.get(id),copiedUrl:()=>copiedUrl};
 }
+
+test('sharing preserves the GitHub Pages project path without query or fragment',async()=>{
+  const page=setup();
+  await page.el('share').listeners.click();
+  assert.equal(page.copiedUrl(),'https://example.github.io/welingkar-voice-agent/');
+});
 
 test('prevents duplicate starts, renders transcript text safely, and exports only final captions',async()=>{
   const {client,el}=setup();

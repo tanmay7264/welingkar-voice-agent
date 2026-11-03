@@ -2,7 +2,17 @@
 
 A browser voice demo backed by the placement outreach assistant in the user's Vapi account. No outbound phone calls, email delivery or calendar booking is configured.
 
+- Live GitHub Pages demo: https://tanmay7264.github.io/welingkar-voice-agent/
+- Source: https://github.com/tanmay7264/welingkar-voice-agent
+- Original hosted demo: https://campus-connect-voice-demo.batchmates.chatgpt.site/
+
 Assistant ID: `b11ea966-52ed-44d7-bf3b-ffeabc0396ad`.
+
+## GitHub Pages
+
+Pushes to `main` run the GitHub Actions workflow in `.github/workflows/pages.yml`. It installs the locked dependencies, runs the tests, builds the browser bundles and deploys only `dist/` to Pages. No private Vapi key or GitHub repository secret is required for deployment. GitHub Pages must be configured to use GitHub Actions as its publishing source.
+
+Asset paths are relative so the same demo works at a domain root and under a Pages project path. The existing browser key allows `https://tanmay7264.github.io` and remains restricted to the configured assistant. The page-share control preserves the project path.
 
 ## Develop
 

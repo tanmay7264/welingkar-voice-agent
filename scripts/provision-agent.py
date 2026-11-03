@@ -49,7 +49,7 @@ if __name__ == "__main__":
             "name": "Campus Connect demo browser",
             "tag": "public",
             "restrictions": {"enabled": True,
-                "allowedOrigins": ["https://campus-connect-voice-demo.batchmates.chatgpt.site", "http://localhost:4173", "http://127.0.0.1:4173"],
+                "allowedOrigins": ["https://campus-connect-voice-demo.batchmates.chatgpt.site", "https://tanmay7264.github.io", "http://localhost:4173", "http://127.0.0.1:4173"],
                 "allowedAssistantIds": [assistant["id"]], "allowTransientAssistant": False}
         })
         browser_config_file.write_text(json.dumps({"assistantId": assistant["id"], "publicKey": token["value"]}, indent=2) + "\n")
