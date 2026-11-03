@@ -1,23 +1,23 @@
-# WeSchool CMC approved knowledge — briefing dated 3 November 2026
+# Welingkar Mumbai CMC approved knowledge — briefing dated 3 November 2026
 
-This is the call-facing knowledge extracted from the user-supplied WeSchool CMC Voice Agent Briefing. Its factual claims are supplied by the briefing, not independently reverified here. Use them only within their stated campus, programme, brochure and batch scope. The behavior and capability rules in agent-prompt.md take precedence over canned pitch lines below.
+This is the call-facing knowledge extracted from the user-supplied CMC Voice Agent Briefing. Its factual claims are supplied by the briefing, not independently reverified here. Use them only within their stated campus, programme, brochure and batch scope. The behavior and capability rules in agent-prompt.md take precedence over canned pitch lines below.
 
 Reference-only placement figures have deliberately been excluded: the briefing expressly forbids quoting them. Older seat counts describe brochure intake capacities only, never available candidates. Bengaluru E-Business 2026–28 curriculum must not be attributed to Mumbai without CMC confirmation. Source URLs are provenance, not permission to browse or treat other material as approved knowledge. Source snapshot SHA-256: 8242ab8510dd70886da2a49f64db6e6ef05691fad97a5e493dc910aa6a23470d
 
 ## About the institute
 
-WeSchool runs two-year, full-time, AICTE-approved PGDM programs from two campuses, Mumbai (Matunga) and Bengaluru (Electronic City). Every line below is taken from WeSchool's own website or brochures; the source is in brackets.
+The Welingkar institute runs two-year, full-time, AICTE-approved PGDM programs from two campuses, Mumbai (Matunga) and Bengaluru (Electronic City). Every line below is taken from Welingkar Mumbai's own website or brochures; the source is in brackets.
 
 | Fact | What the agent may say | Source |
 | --- | --- | --- |
-| Full name | S. P. Mandali's Prin. L. N. Welingkar Institute of Management Development & Research (WeSchool) | [RBA brochure 2025–27](https://www.welingkar.org/downloads/PGDM_Research_%26_Business_Analytics_July%202025.pdf) |
+| Full name | S. P. Mandali's Prin. L. N. Welingkar Institute of Management Development & Research (Welingkar Mumbai) | [RBA brochure 2025–27](https://www.welingkar.org/downloads/PGDM_Research_%26_Business_Analytics_July%202025.pdf) |
 | Mumbai campus | Lakhamsi Napoo Road, Near Matunga (Central Rly.), Mumbai 400 019 | [PGDM Mumbai page](https://www.welingkar.org/pgdm/pgdm_mumbai.php) |
 | Bengaluru campus | 102/103, Electronic City Phase 1, Hosur Road, Bengaluru 560100 | [PGDM Mumbai page](https://www.welingkar.org/pgdm/pgdm_mumbai.php) |
 | Program format | 2-year, full-time, AICTE-approved PGDM, run in six trimesters | [Media & Entertainment brochure 2026–28](https://www.origin.welingkar.org/downloads/PGDM_Media_Entertainment_Brochure_final_Dec_2025_V01_new.pdf), [Rural brochure Dec 2025](https://www.welingkar.org/downloads/PGDM_Rural_Brochure_Dec_2025_new.pdf) |
 | Accreditation | The cited December 2025 brochures report NBA accreditation, AIU MBA equivalence and SAQS accreditation for PGDM programmes at Mumbai and Bengaluru, and ACBSP (USA) accreditation for 10 years for full-time/distance programmes. Current validity and scope need CMC confirmation | [Retail brochure Dec 2025](https://www.welingkar.org/downloads/PGDM_Retail_Marketing_Brochure_Dec_2025.pdf), [Rural brochure Dec 2025](https://www.welingkar.org/downloads/PGDM_Rural_Brochure_Dec_2025_new.pdf) |
-| Ranking | Ranked 75th nationally among B-schools in NIRF 2025, as stated by WeSchool | [Media & Entertainment brochure 2026–28](https://www.origin.welingkar.org/downloads/PGDM_Media_Entertainment_Brochure_final_Dec_2025_V01_new.pdf) |
+| Ranking | Ranked 75th nationally among B-schools in NIRF 2025, as stated by Welingkar Mumbai | [Media & Entertainment brochure 2026–28](https://www.origin.welingkar.org/downloads/PGDM_Media_Entertainment_Brochure_final_Dec_2025_V01_new.pdf) |
 
-**How to say it on a call (short version):** "I'm calling from the Career Management Cell at WeSchool, the Welingkar Institute in Mumbai and Bengaluru. We run two-year, full-time, AICTE-approved PGDM programs, NBA accredited, with general and sector-specialised batches."
+**How to say it on a call (short version):** "I'm calling from the Career Management Cell at Welingkar Mumbai, the Welingkar Institute in Mumbai and Bengaluru. We run two-year, full-time, AICTE-approved PGDM programs, NBA accredited, with general and sector-specialised batches."
 
 **Do not say:** founding year, total batch size, faculty count or alumni count. These were not verified.
 
@@ -38,7 +38,7 @@ Only four of the eight programs (General PGDM, E-Business, Research & Business A
 
 ### 1. PGDM (flagship)
 
-- **What it is:** WeSchool's two-year, full-time flagship PGDM combining general management with a functional specialization in the second year. [Mumbai page](https://www.welingkar.org/pgdm/pgdm_mumbai.php)
+- **What it is:** Welingkar Mumbai's two-year, full-time flagship PGDM combining general management with a functional specialization in the second year. [Mumbai page](https://www.welingkar.org/pgdm/pgdm_mumbai.php)
 - **Specializations:** Marketing, HR, Finance, Operations. The Bengaluru page overview also mentions Analytics; CMC must confirm before the agent mentions it. [Bengaluru page](https://welingkar.org/pgdm/pgdm_bengaluru.php)
 - **Roles the site lists:** Equity Analyst, Business Analyst, Product Manager, HR Generalist, Supply Chain Manager.
 - **Distinctive features (Bengaluru page):** an assessment centre, a development centre with Excel training, domain and aptitude tests, mock GDs and PIs, a "Finance GYM" equity game, and industry and alumni roundtables. [PGDM Core, Bengaluru](https://www.welingkar.org/pgdm-bengaluru/PGDM-Core.html)
@@ -97,7 +97,7 @@ Only four of the eight programs (General PGDM, E-Business, Research & Business A
 - **What it is:** a Mumbai PGDM covering the full retail value chain, with a functional specialization in Year 2. [Retail brochure 2026–28](https://www.welingkar.org/downloads/PGDM_Retail_Marketing_Brochure_Dec_2025.pdf)
 - **Specializations:** Marketing, Operations, Finance, HR.
 - **Retail courses by trimester:** T1 Basics of Retailing; T2 Store Location, Store Design and Visual Merchandising, Supply Chain; T3 Retail Operations and Mall Management, Retail Selling and Negotiation; T4 Retail Buying and Merchandising, Retail Analytics, Digital Marketing; T5 Category Management, Omni-Channel Strategy, Digital Transformation in Retail; T6 International Retail, Retail Franchise Management.
-- **Retail immersion partners named by WeSchool:** Aditya Birla Fashion and Retail, IKEA India, Lifestyle, Phoenix Market City and Palladium, Shoppers Stop, Reliance Retail, Trent Hypermarket. These are immersion partners, not confirmed recruiters.
+- **Retail immersion partners named by Welingkar Mumbai:** Aditya Birla Fashion and Retail, IKEA India, Lifestyle, Phoenix Market City and Palladium, Shoppers Stop, Reliance Retail, Trent Hypermarket. These are immersion partners, not confirmed recruiters.
 - **Roles the website lists:** Assistant Merchandise Planner, Key Account Manager, Trainee/Assistant Category Manager, Assistant Store Manager, Assistant Area Manager, Customer Relationship Manager, Loyalty Program Manager, Customer Insights Executive, Assistant Visual Merchandiser, Management Trainee. [Retail Mumbai page](https://www.welingkar.org/pgdm/pgdm_retail_management_mumbai.php)
 - **Pitch line:** "Retail students specialise in a function and add category, merchandising and omnichannel training."
 
@@ -181,7 +181,7 @@ The agent stays silent on everything below until a CMC member confirms it and ed
 
 ## Sources
 
-All pages are WeSchool's own and were opened on 3 Nov 2026. Program brochures are labelled with the batch shown on them.
+All pages are Welingkar Mumbai's own and were opened on 3 Nov 2026. Program brochures are labelled with the batch shown on them.
 
 - [PGDM Mumbai page](https://www.welingkar.org/pgdm/pgdm_mumbai.php)
 - [PGDM Bengaluru page](https://welingkar.org/pgdm/pgdm_bengaluru.php)

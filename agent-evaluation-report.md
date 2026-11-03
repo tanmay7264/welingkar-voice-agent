@@ -46,3 +46,13 @@ The earlier evaluation exposed incorrect HRBP assumptions and weak escalation be
 ## Limits
 
 These are synthetic text/model-layer checkpoints, not a guarantee of future accuracy. They do not test live speech recognition, pronunciation, interruption handling, audio transport, or real email/calendar/human follow-up. No new voice call was placed for this knowledge update. Vapi Chat API was unavailable because the account has no payment method for Chat; Vapi Evals worked and supplied the results above. AI judges can miss failures; do not treat a pass count as proof of zero errors. Source facts remain those supplied by the dated briefing; no fresh accreditation or placement report was independently verified.
+
+
+## Naming correction — 4 November 2026
+
+The spoken and displayed campus name is now **Welingkar Mumbai**. The opening, runtime instructions and knowledge extract were updated; original source URLs/provenance remain intact. Two targeted naming checks against the saved live assistant passed (identity and responding to a naming correction). The broader 28-case results above refer to the prior knowledge hash, before this naming-only update. No new voice call was placed for this change.
+
+Current assembled knowledge SHA-256: `571638f4aca5db2d008d1bec974c5b9f2f8250c1b9596782c05fa23bb3e8cde6`.
+
+- campus-name: Pass (`5194c2cc-7ead-4293-946e-e21d7f12a33c`)
+- naming-correction: Pass (`e36563b7-b77b-415f-8ce2-a3d734152e0e`)

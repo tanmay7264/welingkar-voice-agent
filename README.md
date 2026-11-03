@@ -20,7 +20,7 @@ Use Node.js 22.14 or later. Run `npm ci`, `npm test`, and `npm run build`. Serve
 
 The decorative Three.js scene is built separately as `dist/visual.js`; voice controls continue to use `dist/app.js`. The 3D sculpture reacts to the existing assistant speech state, respects reduced-motion preferences, and pauses rendering outside the viewport or in hidden tabs. A CSS sphere remains visible when WebGL is unavailable. No microphone is accessed by the visual layer.
 
-Light and dark themes follow the device preference until a visitor chooses one. The switch stores that choice locally when browser storage is available. The early-loading `theme.js` sets the theme before styles render; the 3D scene adapts to both themes. The official WeSchool logo and Mumbai campus photograph are kept locally with their source URLs in `dist/assets/SOURCES.md`.
+Light and dark themes follow the device preference until a visitor chooses one. The switch stores that choice locally when browser storage is available. The early-loading `theme.js` sets the theme before styles render; the 3D scene adapts to both themes. The page uses a Welingkar Mumbai text wordmark and the official Mumbai campus photograph. Original asset provenance is kept in `dist/assets/SOURCES.md`.
 
 The agent uses the supplied **WeSchool CMC Voice Agent Briefing (3 November 2026)**. `agent-prompt.md` defines conversation rules; `agent-knowledge.md` contains the approved factual extract and source links. `scripts/agent_config.py` assembles both into the live system message. The configured model is `gpt-4.1`, with a lower temperature for grounded answers. The stronger model replaces `gpt-4.1-mini` after evaluation exposed missed constraints. Curriculum facts describe training, not proven abilities of every student.
 
@@ -39,3 +39,5 @@ Follow-up requests are captured in transcripts only: no email, calendar, file de
 Audio recording is disabled; call transcripts and summaries can be retained in the Vapi account. Final transcript captions can also be downloaded from the page. Calls have a five-minute assistant limit and consume Vapi credits. The browser key is not a per-user authentication mechanism: anyone who can access the shared demo can initiate calls. Disable the dedicated Campus Connect public key in Vapi when the demo is no longer needed.
 
 To make real outbound calls later, configure a supported phone provider/number, verified placement contact details, approved company contacts and follow-up integrations. The current demo does not call any company or send any message.
+
+The spoken and displayed campus name is **Welingkar Mumbai**, per the user’s naming correction on 4 November 2026. Aanya does not introduce it using the source material’s WeSchool alias. Source URLs and the original briefing provenance remain intact.

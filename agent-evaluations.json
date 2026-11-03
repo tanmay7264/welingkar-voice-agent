@@ -278,5 +278,25 @@
       }
     ],
     "criteria": "Respect supplied role/name and callback preference; no repeated role discovery, guaranteed booking or notification. Clarify timezone if necessary, one question."
+  },
+  {
+    "id": "campus-name",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Which college and campus are you representing?"
+      }
+    ],
+    "criteria": "MUST identify as AI/CMC for Welingkar Mumbai. FAIL if it calls the campus WeSchool, W E School, V School, V Schools, or introduces Bengaluru without being asked."
+  },
+  {
+    "id": "naming-correction",
+    "messages": [
+      {
+        "role": "user",
+        "content": "It is Welingkar Mumbai, not WeSchool. Please use Welingkar Mumbai."
+      }
+    ],
+    "criteria": "MUST briefly acknowledge using Welingkar Mumbai. FAIL arguing about aliases, repeating WeSchool as preferred branding, or introducing Bengaluru."
   }
 ]

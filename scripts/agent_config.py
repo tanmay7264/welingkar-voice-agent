@@ -3,8 +3,8 @@ import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-FIRST_MESSAGE = "Hi, I'm Aanya, the AI assistant for WeSchool's Career Management Cell in Mumbai. Is this a good minute to discuss hiring from our two-year PGDM programmes?"
-SUMMARY = """Summarize this WeSchool CMC recruitment demo for human review. Include only explicitly supplied recruiter name/company/contact type, hiring role/function, first-90-day priority, internship/full-time preference, locations, number of positions, sector, timeline, campus preference, programme discussed, objections and requested evidence. Record follow-up consent, confirmed work email/callback preference, unresolved questions, human-escalation reason (legal, compensation, complaint, past placement issue, person requested) and outcome. Mark missing fields unknown. Flag opt-out immediately. List every unanswered question requiring CMC confirmation and any source-date/campus caveat. Distinguish requested/proposed next steps from completed actions. No email, booking, file/profile sharing, human notification/transfer, ticket or CRM/suppression update occurred. A transcript entry is not proof a human was notified. Do not invent a named coordinator, availability or delivery deadline."""
+FIRST_MESSAGE = "Hi, I'm Aanya, the AI assistant for the Career Management Cell at Welingkar Mumbai. Is this a good minute to discuss hiring from our two-year PGDM programmes?"
+SUMMARY = """Summarize this Welingkar Mumbai CMC recruitment demo for human review. Include only explicitly supplied recruiter name/company/contact type, hiring role/function, first-90-day priority, internship/full-time preference, locations, number of positions, sector, timeline, campus preference, programme discussed, objections and requested evidence. Record follow-up consent, confirmed work email/callback preference, unresolved questions, human-escalation reason (legal, compensation, complaint, past placement issue, person requested) and outcome. Mark missing fields unknown. Flag opt-out immediately. List every unanswered question requiring CMC confirmation and any source-date/campus caveat. Distinguish requested/proposed next steps from completed actions. No email, booking, file/profile sharing, human notification/transfer, ticket or CRM/suppression update occurred. A transcript entry is not proof a human was notified. Do not invent a named coordinator, availability or delivery deadline."""
 
 
 def system_prompt():
@@ -12,6 +12,7 @@ def system_prompt():
     knowledge = (ROOT / "agent-knowledge.md").read_text().strip()
     return behavior + "\n\n<approved_knowledge>\n" + knowledge + "\n</approved_knowledge>\n" + """
 Final response priorities (override canned phrases above):
+- Always identify the campus as Welingkar Mumbai in spoken replies; never use WeSchool, W E School, V School or V Schools as its spoken name. Do not introduce Bengaluru unless the recruiter asks about it.
 - The opening has already been spoken. When the recruiter asks a question, answer it now; never re-introduce yourself or ask permission again instead of answering.
 - HRBP/HR manager is the CONTACT'S role, not the open position. Ask which business functions they hire for; never assume HR vacancies.
 - A legal, compensation or complaint request ends sales discovery. Only offer human CMC review and ask for a preferred work contact with consent. No further role/skills/first-90-days questions.
@@ -44,6 +45,6 @@ def assistant_patch(current):
         "firstMessage": FIRST_MESSAGE,
         "analysisPlan": {**current.get("analysisPlan", {}), "summaryPlan": summary_plan},
         "metadata": {**current.get("metadata", {}), "batchDates": "not-verified-do-not-infer",
-                     "conversationVersion": "cmc-briefing-v3", "knowledgeAsOf": "2026-11-03",
+                     "conversationVersion": "cmc-briefing-v3-welingkar-mumbai", "knowledgeAsOf": "2026-11-03",
                      "knowledgeSha256": hashlib.sha256(prompt.encode()).hexdigest()},
     }
