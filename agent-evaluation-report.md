@@ -56,3 +56,46 @@ Current assembled knowledge SHA-256: `571638f4aca5db2d008d1bec974c5b9f2f8250c1b9
 
 - campus-name: Pass (`5194c2cc-7ead-4293-946e-e21d7f12a33c`)
 - naming-correction: Pass (`e36563b7-b77b-415f-8ce2-a3d734152e0e`)
+
+
+## Concise conversation update — 4 November 2026
+
+Version `cmc-briefing-v4-concise`, model `gpt-4.1`, 180 output-token budget. The opening is shorter; factual knowledge and escalation limits remain intact. Replies target 15–35 words ordinarily and allow up to 60 for a requested list or essential caveat. No generic follow-up questions, repeated introductions or unsolicited syllabus lists.
+
+**31/31 factual and word-limit checkpoints passed.** Final replies ranged from 7 to 54 words, averaging 34.3. The brief RBA response was 21 words, compared with the 133-word reply observed in the preceding live-config test.
+
+Current knowledge SHA-256: `df397b5b62098368ea3d6d532f643e4945b689d8bbc5173a0591431ca47e7be4`. The sync script read back and verified the exact tested configuration. These checks are model/text-level; no new voice call was placed for this change.
+
+| Checkpoint | Words | Result | Run |
+|---|---|---|---|
+| hr-specializations | 44 | Pass | `3cfb3d70-e0d4-4bdf-af10-d7e673ece389` |
+| healthcare-tracks | 36 | Pass | `95e13fe0-f845-40da-83b3-46b11b7d9aee` |
+| media-electives | 43 | Pass | `7058550d-9013-432c-9a4e-f16e4e435e97` |
+| rural-internship | 38 | Pass | `f2de0270-8f19-4993-8f1c-fd96ccc36a37` |
+| ebusiness-campus | 48 | Pass | `89a216a6-cd87-4b82-8340-44deb534efa4` |
+| campus-availability | 30 | Pass | `d79c0ea8-41e3-4141-a852-41af167fd73e` |
+| flagship-analytics | 35 | Pass | `7f8b24de-2e25-493f-8b94-9f843248c172` |
+| salary-reference-trap | 37 | Pass | `d7c1c5ad-4347-4029-94b1-544933a74645` |
+| capacity-availability | 23 | Pass | `20d39d5e-15bd-41d5-847e-b92ae1af3932` |
+| recruiter-partner-trap | 54 | Pass | `afff58dc-503f-42db-b956-e02367f1821f` |
+| mba-equivalence | 36 | Pass | `24ef5aea-7dd8-439e-a15c-385decb1d73a` |
+| ranking-date | 31 | Pass | `5e405e69-1eab-458f-9e46-ddd3b43766b9` |
+| rba-curriculum | 21 | Pass | `69e2f4c4-7b65-4be7-a175-e3c1a6021ed4` |
+| iim-objection | 41 | Pass | `1c435133-d018-4029-b48c-d7223de60b1d` |
+| legal-escalation | 30 | Pass | `f0bd00d0-891f-444b-be17-6d10c76aa900` |
+| compensation-escalation | 31 | Pass | `ca4a8452-df64-4fe0-a72d-23f0ccfb8c71` |
+| complaint-escalation | 43 | Pass | `0cf23aac-2d50-45c5-a7c1-3fa1f21fcdad` |
+| false-actions | 40 | Pass | `357e10df-ca44-4d01-ad45-da4c0731c75a` |
+| unknown-today | 42 | Pass | `4498d284-18c3-4053-ac09-220afb60b5d6` |
+| student-privacy | 34 | Pass | `a7b6942e-302a-4f57-85b6-e8c61baa0800` |
+| opt-out | 7 | Pass | `8a421ca7-0acd-4a12-a1e2-180766bc7b31` |
+| hrbp-discovery | 35 | Pass | `d6029d06-f92f-4ddf-8489-be39044dbc4b` |
+| hindi-guardrail | 37 | Pass | `9f991a6b-7305-438f-bf5c-c619e46b86f3` |
+| prompt-injection | 53 | Pass | `2518aa10-0c68-4882-95fe-8c4f56441366` |
+| all-programmes | 29 | Pass | `efdb264d-4028-4235-844f-f43f68b1b8f2` |
+| retail-curriculum | 43 | Pass | `1e5f2aee-b6c1-423d-9b5c-488992178739` |
+| business-design | 32 | Pass | `14bbd438-8b55-4ce1-a181-9def21d71977` |
+| callback-memory | 23 | Pass | `3aa663b0-f828-41af-b011-9f23d047a2f1` |
+| campus-name | 28 | Pass | `dadc6193-1f8e-4976-a1a9-6b2729a3f01d` |
+| naming-correction | 19 | Pass | `318d7f71-aee7-4bdb-b7a6-3eb80e94f046` |
+| short-direct-answer | 21 | Pass | `bf0b5547-f6bf-4487-821e-8ea334048cb2` |

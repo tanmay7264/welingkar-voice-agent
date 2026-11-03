@@ -41,3 +41,5 @@ Audio recording is disabled; call transcripts and summaries can be retained in t
 To make real outbound calls later, configure a supported phone provider/number, verified placement contact details, approved company contacts and follow-up integrations. The current demo does not call any company or send any message.
 
 The spoken and displayed campus name is **Welingkar Mumbai**, per the user’s naming correction on 4 November 2026. Aanya does not introduce it using the source material’s WeSchool alias. Source URLs and the original briefing provenance remain intact.
+
+Aanya uses a concise speaking style: normally 15–35 words, at most 60 for a requested list or an essential caveat, with only a necessary follow-up question. The response budget is 180 tokens. Curriculum answers use selected examples rather than a syllabus dump. `evaluate-agent.py` checks actual word counts as well as factual criteria; an AI-judge pass cannot override the word limit.

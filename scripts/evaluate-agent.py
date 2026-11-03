@@ -40,8 +40,12 @@ def evaluate(case):
             results = run.get("results", [])
             passed = run.get("endedReason") == "mockConversation.done" and bool(results) and all(r["status"] == "pass" for r in results)
             messages = [m for r in results for m in r.get("messages", []) if m["role"] == "assistant"]
+            lengths = [len(m.get("content", "").split()) for m in messages if "judge" in m]
+            within_limit = all(length <= case.get("maxWords", 60) for length in lengths)
+            passed = passed and within_limit
             result = {"case": case["id"], "passed": passed, "runId": run["id"],
-                      "endedReason": run.get("endedReason"), "answers": messages}
+                      "endedReason": run.get("endedReason"), "wordCounts": lengths,
+                      "withinWordLimit": within_limit, "answers": messages}
             print(json.dumps(result, ensure_ascii=False), flush=True)
             return result
         time.sleep(2)
