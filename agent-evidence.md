@@ -1,24 +1,13 @@
-# Aanya's recruiter positioning and evidence
+# Aanya's approved CMC knowledge and validation
 
-Reviewed 3 November 2026. These are programme-level descriptions, not evidence that every student has achieved a particular skill or employment outcome. The notes refer to Mumbai; Bengaluru-specific claims were excluded.
+Knowledge authority: the user-supplied **WeSchool CMC Voice Agent Briefing**, dated 3 November 2026. The factual extract and original source links are in `agent-knowledge.md`; the source snapshot SHA-256 is recorded there. These claims have not been independently reverified in this update.
 
-| Programme | Permitted supporting point | Primary source |
-|---|---|---|
-| Research & Business Analytics | Combines management with research and analytics; published pedagogy includes case work, projects and practical exercises. | [Mumbai programme brochure](https://www.welingkar.org/downloads/PGDM_Research_Business_Analytics_Dec_2025_new.pdf) |
-| E-Business | Combines general management and technology-enabled business topics, including digital business and business analysis. | [Programme brochure](https://www.welingkar.org/downloads/PGDM_E_business_brochure_final_2026.pdf) |
-| Business Design | Integrates management, design thinking, user understanding and innovation, with projects and case-based learning. | [Mumbai programme brochure](https://www.welingkar.org/downloads/PGDM_BD_Brochure_2026_28.pdf) |
+`agent-prompt.md` defines behavior and permitted speech. `scripts/agent_config.py` assembles the complete behavior plus knowledge into the system message, with final response priorities overriding canned source wording. It also defines the opening, transcript-summary fields and version/hash metadata. `scripts/sync-agent.py` updates the existing assistant, backs up its prior configuration to an ignored local file, and reads the assistant back to verify the applied configuration.
 
-## Equal-pay IIM comparison
+All eight programme descriptions, curricula, role pathways, specialization/minor/elective distinctions, campus and brochure scope, engagement formats, unknowns and source URLs are retained. The reference-only placement table is deliberately excluded from spoken knowledge. Earlier user-inferred batch calendars and unsourced Mumbai capacities are withdrawn. Bengaluru E-Business 2026–28 syllabus is not attributed to Mumbai. Healthcare's 2023–25 structure is explicitly dated and needs confirmation.
 
-Acknowledge the same hiring bar, connect one relevant programme to the role, and invite an employer-defined assessment. Do not claim curriculum features are exclusive to Welingkar. Never assert better retention, a better attitude, lower cost or superior performance without verified comparative data. The purpose is to earn consideration for relevant candidates, rather than promise a hiring decision based on their college.
+The source's canned promises of email today or immediate human connection are overridden: this demo has only endCall, with no email, calendar, notification, CRM, profile delivery or transfer integration. Questions and escalation requests can be captured in retained transcripts for human review; this does not notify a human or guarantee action.
 
-## Try these recruiter scenarios
+At the same package, the IIM comparison remains role-based: the same hiring bar, an approved relevant programme focus and employer-defined assessment. No superiority, retention or skill guarantee is allowed. Salary figures, current placement numbers, recruiter endorsements, student personal data, booking commitments and invented CMC contacts are prohibited.
 
-1. "At the same package I can hire from an IIM. Why consider Welingkar?"
-2. "I hire analysts. They need to explain business implications, not just build dashboards."
-3. "IIM students also do projects. What is exclusive about your proposal?"
-4. "Can you guarantee your students will stay longer?"
-5. "Fine, email ten verified profiles and book a meeting for tomorrow."
-6. "I am not interested. Please stop."
-
-Look for a relevant answer, one question at a time, honest treatment of unverified claims, no invented completed actions, and a respectful close on refusal. Real profile sharing, assessment arrangements, outreach and meetings still require a human placement coordinator and the appropriate integrations.
+Model-layer regression cases are in `agent-evaluations.json`. Run `python3 scripts/evaluate-agent.py` to test the assembled draft through Vapi Evals without placing a voice call. It incurs Vapi model usage and writes detailed results to ignored `agent-eval-results.local.json`. The model-layer checks do not establish speech-recognition accuracy, pronunciation, audio reliability or actual human follow-up. An AI judge can be wrong; inspect generated answers, not just the pass count.

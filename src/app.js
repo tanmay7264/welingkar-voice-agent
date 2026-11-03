@@ -168,7 +168,7 @@ document.querySelectorAll('.scenario').forEach(button => button.addEventListener
 
 ui.download.addEventListener('click', () => {
   if (!transcript.length) return;
-  const text = ['CAMPUS CONNECT · WELINGKAR, MUMBAI', 'Voice assistant demonstration', new Date().toISOString(), callId ? `Vapi call: ${callId}` : '', '', ...transcript.map(m => `${m.role === 'assistant' ? 'Aanya (AI)' : 'Recruiter'}: ${m.text}`), '', 'Demo only. No email was sent or meeting booked. Batch timelines remain unconfirmed. Sample placement contacts are placeholders.'].filter(Boolean).join('\n\n');
+  const text = ['CAMPUS CONNECT · WELINGKAR, MUMBAI', 'Voice assistant demonstration', new Date().toISOString(), callId ? `Vapi call: ${callId}` : '', '', ...transcript.map(m => `${m.role === 'assistant' ? 'Aanya (AI)' : 'Recruiter'}: ${m.text}`), '', 'Demo only. No email was sent or meeting booked. CMC must confirm current timelines, availability and follow-up contacts.'].filter(Boolean).join('\n\n');
   const url = URL.createObjectURL(new Blob([text], {type:'text/plain;charset=utf-8'}));
   const link = document.createElement('a');
   link.href = url;

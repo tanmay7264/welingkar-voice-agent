@@ -3,6 +3,7 @@ import json
 import subprocess
 from pathlib import Path
 import yaml
+from agent_config import assistant_patch
 
 ROOT = Path(__file__).resolve().parents[1]
 config = yaml.safe_load((Path.home() / ".vapi-cli.yaml").read_text())
@@ -41,7 +42,8 @@ if __name__ == "__main__":
             "metadata": {"purpose": "campus-recruitment-demo", "college": "Welingkar, Mumbai", "batchDates": "indicative-unconfirmed"}
         })
         identity_file.write_text(json.dumps({"id": assistant["id"], "name": assistant["name"]}, indent=2) + "\n")
-    print("Assistant ready:", assistant["id"])
+    assistant = request("PATCH", "assistant/" + assistant["id"], assistant_patch(assistant))
+    print("Assistant ready with approved CMC knowledge:", assistant["id"])
     browser_config_file = ROOT / "src" / "config.json"
     browser_config_file.parent.mkdir(exist_ok=True)
     if not browser_config_file.exists():
