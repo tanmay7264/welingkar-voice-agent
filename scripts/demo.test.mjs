@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import Vapi from '../src/vapi-client.js';
-import {callErrorMessage} from '../src/call-error.js';
+import {callErrorMessage, callEndMessage, isNormalEndReason, isRoomClosedError} from '../src/call-error.js';
 
 test('the installed Vapi SDK resolves to the callable client constructor',()=>{
   assert.equal(typeof Vapi,'function');
@@ -42,7 +42,7 @@ function setup({noMic=false,reject=false,startImpl}={}) {
     setMuted(value){this.muted=value;}
   }
   const source=readFileSync(new URL('../src/app.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
-  vm.runInNewContext(source,{Vapi,callErrorMessage,config:{publicKey:'test-public',assistantId:'test-assistant'},document:{getElementById(id){if(!elements.has(id))elements.set(id,new Element());return elements.get(id);},querySelectorAll(){return[];},createElement(){return new Element();},createTextNode(text){return {text};}},navigator:{mediaDevices:noMic?undefined:{getUserMedia(){}},clipboard:{async writeText(value){copiedUrl=value;}}},window:{location:{href:'https://example.github.io/welingkar-voice-agent/?demo=1#page-title'},addEventListener(){}},setInterval(){return 1;},clearInterval(){},setTimeout(){},Date,URL,Blob});
+  vm.runInNewContext(source,{Vapi,callErrorMessage,callEndMessage,isNormalEndReason,isRoomClosedError,config:{publicKey:'test-public',assistantId:'test-assistant'},document:{getElementById(id){if(!elements.has(id))elements.set(id,new Element());return elements.get(id);},querySelectorAll(){return[];},createElement(){return new Element();},createTextNode(text){return {text};}},navigator:{mediaDevices:noMic?undefined:{getUserMedia(){}},clipboard:{async writeText(value){copiedUrl=value;}}},window:{location:{href:'https://example.github.io/welingkar-voice-agent/?demo=1#page-title'},addEventListener(){}},setInterval(){return 1;},clearInterval(){},setTimeout(){},Date,URL,Blob});
   return {client,el:id=>elements.get(id),copiedUrl:()=>copiedUrl};
 }
 
@@ -128,4 +128,63 @@ test('unsupported microphone and connection failures leave an actionable retry s
   assert.equal(failed.el('start').disabled,false);
   assert.equal(failed.el('error').hidden,false);
   assert.match(failed.el('error').textContent,/live audio connection failed/);
+});
+
+test('normal assistant and silence endings do not show a failed-room-join error',async()=>{
+  for (const reason of ['assistant-ended-call','assistant-ended-call-after-message-spoken','silence-timed-out','exceeded-max-duration']) {
+    const {client,el}=setup();
+    await el('start').listeners.click();
+    client.events['call-start']();
+    client.events.message({type:'status-update',status:'ended',endedReason:reason});
+    client.events.error({type:'daily-error',error:{message:'Meeting has ended'}});
+    client.events['call-end']();
+    assert.equal(el('error').hidden,true,reason);
+    assert.equal(el('start').disabled,false,reason);
+    assert.equal(el('end').hidden,true,reason);
+    if(reason==='silence-timed-out')assert.match(el('voice-status').textContent,/period of silence/);
+  }
+});
+
+test('room closure can precede terminal status without producing a connection error',async()=>{
+  const {client,el}=setup();
+  await el('start').listeners.click();
+  client.events['call-start']();
+  client.events.error({type:'daily-error',error:{errorMsg:'Meeting has ended'}});
+  assert.equal(el('error').hidden,true);
+  assert.match(el('voice-status').textContent,/call has ended/);
+  client.events.message({type:'status-update',status:'ended',endedReason:'silence-timed-out'});
+  assert.match(el('voice-status').textContent,/period of silence/);
+});
+
+test('real mid-call network failures remain visible after SDK synthetic leave status',async()=>{
+  const {client,el}=setup();
+  await el('start').listeners.click();
+  client.events['call-start']();
+  client.events.error({type:'daily-error',error:{message:'WebSocket connection timed out'}});
+  client.events['call-end']();
+  client.events.message({type:'status-update',status:'ended',endedReason:'customer-ended-call'});
+  assert.equal(el('error').hidden,false);
+  assert.match(el('error').textContent,/connection was interrupted/);
+  assert.doesNotMatch(el('error').textContent,/could not connect/);
+});
+
+test('normal ending state resets before retry and does not hide the next join failure',async()=>{
+  const {client,el}=setup();
+  await el('start').listeners.click();
+  client.events['call-start']();
+  client.events.message({type:'status-update',status:'ended',endedReason:'assistant-ended-call'});
+  await el('start').listeners.click();
+  client.events.error({type:'daily-call-join-error',error:{message:'Meeting has ended'}});
+  assert.equal(el('error').hidden,false);
+  assert.match(el('error').textContent,/connection failed/);
+});
+
+test('server-reported failure after room closure remains an unexpected end',async()=>{
+  const {client,el}=setup();
+  await el('start').listeners.click();
+  client.events['call-start']();
+  client.events.error({type:'daily-error',error:{message:'Meeting has ended'}});
+  client.events.message({type:'status-update',status:'ended',endedReason:'pipeline-error-openai-llm-failed'});
+  assert.equal(el('error').hidden,false);
+  assert.match(el('error').textContent,/ended unexpectedly/);
 });

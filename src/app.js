@@ -1,6 +1,6 @@
 import Vapi from './vapi-client.js';
 import config from './config.json';
-import {callErrorMessage} from './call-error.js';
+import {callErrorMessage, callEndMessage, isNormalEndReason, isRoomClosedError} from './call-error.js';
 
 const byId = (id) => document.getElementById(id);
 const ui = Object.fromEntries(['start','start-label','end','mute','state','voice-status','visual','transcript','empty','timer','error','download','suggestion','transcript-note','share','toast'].map(id => [id, byId(id)]));
@@ -14,6 +14,8 @@ let transcript = [];
 let lastTranscript = '';
 let startPending = false;
 let startError;
+let connectedThisAttempt = false;
+let endReason;
 
 function setState(next) {
   state = next;
@@ -43,6 +45,10 @@ function endLocally() {
   ui.mute.setAttribute('aria-pressed', 'false');
   ui.mute.textContent = 'Mute mic';
   ui['voice-status'].textContent = transcript.length ? 'Thanks for trying Aanya. Download the transcript or start another conversation.' : 'You play the company recruiter. Aanya starts the conversation.';
+  if (endReason) {
+    ui.error.hidden = true;
+    ui['voice-status'].textContent = callEndMessage(endReason);
+  }
   ui['transcript-note'].textContent = transcript.length ? 'Demo complete · Next steps need human confirmation' : 'Live captions appear here when you connect';
   ui.download.disabled = transcript.length === 0;
 }
@@ -56,19 +62,21 @@ ui.start.addEventListener('click', async () => {
   }
   startPending = true;
   startError = undefined;
+  connectedThisAttempt = false;
+  endReason = undefined;
   setState('connecting');
   ui['voice-status'].textContent = 'Allow microphone access when your browser asks. Headphones help keep the conversation clear.';
   try {
     const call = await vapi.start(config.assistantId);
     if (call === null) {
       endLocally();
-      showError(callErrorMessage(startError));
+      if (!endReason) showError(callErrorMessage(startError));
       return;
     }
     callId = call?.id;
   } catch (error) {
     endLocally();
-    showError(callErrorMessage(startError ?? error));
+    if (!endReason) showError(callErrorMessage(startError ?? error));
   } finally {
     startPending = false;
     ui.start.disabled = state === 'connecting' || state === 'ending';
@@ -86,6 +94,7 @@ vapi.on('call-start-progress', ({stage, status}) => {
 });
 
 vapi.on('call-start', () => {
+  connectedThisAttempt = true;
   ui.error.hidden = true;
   transcript = [];
   lastTranscript = '';
@@ -103,6 +112,7 @@ vapi.on('call-start', () => {
     const seconds = Math.floor((Date.now() - startedAt) / 1000);
     ui.timer.textContent = `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
     if (seconds >= 300 && state === 'connected') {
+      endReason = 'exceeded-max-duration';
       setState('ending');
       vapi.stop();
     }
@@ -120,13 +130,31 @@ vapi.on('speech-end', () => {
 vapi.on('call-end', endLocally);
 vapi.on('error', (error) => {
   if (error?.type === 'audio-processing-setup-error') return;
+  // Room teardown after an established call is not a failed room join.
+  if (endReason || (connectedThisAttempt && isRoomClosedError(error))) {
+    endReason ??= 'room-ended';
+    endLocally();
+    return;
+  }
   // The SDK cleans up asynchronously after join errors; wait before allowing retry.
   if (startPending) { startError = error; return; }
   if (state === 'ending') { endLocally(); return; }
   endLocally();
-  showError(callErrorMessage(error));
+  showError(callErrorMessage(error, {connected: connectedThisAttempt}));
 });
 vapi.on('message', message => {
+  if (message.type === 'status-update' && message.status === 'ended') {
+    if (isNormalEndReason(message.endedReason)) endReason = message.endedReason;
+    else if (message.endedReason && message.endedReason !== 'customer-ended-call') {
+      endReason = undefined;
+      endLocally();
+      showError(callErrorMessage({message: message.endedReason}, {connected: connectedThisAttempt}));
+      return;
+    }
+    // The SDK also synthesizes customer-ended-call on leave after errors.
+    endLocally();
+    return;
+  }
   if (message.type !== 'transcript' || !message.transcript?.trim()) return;
   interim?.remove();
   interim = null;
@@ -150,6 +178,7 @@ vapi.on('message', message => {
 
 ui.end.addEventListener('click', () => {
   if (state !== 'connected') return;
+  endReason = 'customer-ended-call';
   setState('ending');
   ui['voice-status'].textContent = 'Ending your conversation…';
   vapi.stop();

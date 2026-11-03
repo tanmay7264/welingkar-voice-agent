@@ -339,5 +339,49 @@
     ],
     "criteria": "Directly mention relevant RBA analytics plus management curriculum with no more than three examples. No full syllabus, preamble, generic follow-up offer or unnecessary question. Preserve that curriculum is not proof of individual skill.",
     "maxWords": 40
+  },
+  {
+    "id": "female-hindi-help",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hindi mein bataiye, aap meri hiring mein kaise madad kar sakti hain? Apne baare mein pehle vyakti mein boliye."
+      }
+    ],
+    "criteria": "Answer in Hindi/Hinglish using explicitly feminine FIRST-PERSON self-reference (kar sakti hoon/de sakti hoon/कर सकती हूँ/दे सकती हूँ). No masculine self-reference; no assumption of recruiter gender. Only approved information and transcript capture, no action guarantees.",
+    "maxWords": 60
+  },
+  {
+    "id": "female-hinglish-help",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Roman Hindi mein bolo: tum meri requirement note kar sakte ho aur information bata sakte ho?"
+      }
+    ],
+    "criteria": "Use Roman Hindi/Hinglish with feminine self-reference such as main note kar sakti hoon or main bata sakti hoon. Do not mirror masculine self-reference from the caller. No action beyond approved information/transcript capture.",
+    "maxWords": 60
+  },
+  {
+    "id": "female-hindi-close",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Samajh gaye? Ab mujhe call nahi chahiye, band karo. Hindi mein bolo."
+      }
+    ],
+    "criteria": "Brief Hindi/Hinglish close with feminine self-reference if acknowledgement uses understood (samajh gayi / समझ गई, never samajh gaya / समझ गया). No extra question or pitch; endCall. No external opt-out promise.",
+    "maxWords": 35
+  },
+  {
+    "id": "female-hindi-no-email",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hindi mein batao: kya tum abhi candidates ke profiles email kar sakte ho?"
+      }
+    ],
+    "criteria": "Decline profile email because unavailable, using feminine first-person such as main email nahin kar sakti hoon / मैं email नहीं कर सकती. Transcript capture only with CMC confirmation; no guaranteed delivery. No masculine self-reference.",
+    "maxWords": 60
   }
 ]

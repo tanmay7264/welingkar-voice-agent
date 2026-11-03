@@ -99,3 +99,23 @@ Current knowledge SHA-256: `df397b5b62098368ea3d6d532f643e4945b689d8bbc5173a0591
 | campus-name | 28 | Pass | `dadc6193-1f8e-4976-a1a9-6b2729a3f01d` |
 | naming-correction | 19 | Pass | `318d7f71-aee7-4bdb-b7a6-3eb80e94f046` |
 | short-direct-answer | 21 | Pass | `bf0b5547-f6bf-4487-821e-8ea334048cb2` |
+
+
+## Call endings and feminine Hindi — 4 November 2026
+
+The reported recent call was confirmed in Vapi as `assistant-ended-call`, after more than four minutes; the page had been treating room teardown as a connection failure. The UI now handles assistant-ended calls, silence timeout and the five-minute limit as normal endings, including when the Daily room-close error arrives first. Genuine initial-join failures and mid-call network interruptions still display errors, and synthetic SDK customer-ended status does not hide a real error. A retry resets the prior end reason. Sixteen local control/theme tests pass.
+
+Aanya uses feminine first-person Hindi/Hinglish (e.g. `समझ गई`, `कर सकती हूँ`, `main kar sakti hoon`), while keeping the recruiter’s gender unspecified. The existing Naina female voice remains unchanged. Eight targeted model-layer checks passed, including four gender cases and existing naming, brevity, Healthcare and escalation checks.
+
+Current knowledge SHA-256: `9455883b7079105c5d562d682128013ea661f7db35bc37e4fbba860c8f5df8c0`. The live assistant was read back and verified against the tested configuration. These gender checks are text/model-layer; no spoken Hindi microphone input was injected.
+
+| Checkpoint | Words | Result | Run |
+|---|---|---|---|
+| compensation-escalation | 37 | Pass | `c189084a-cd98-4cef-8a98-b5a7fde803df` |
+| hindi-guardrail | 38 | Pass | `87892dd6-7e9b-468b-a538-459c2b1aa1d6` |
+| campus-name | 22 | Pass | `a0db92e9-b117-4a2c-8139-bb885969c145` |
+| short-direct-answer | 21 | Pass | `5661b169-ba8d-47d1-82d2-de0ce6bae146` |
+| female-hindi-help | 28 | Pass | `193374b2-5d21-49be-95fb-fa15b170bf87` |
+| female-hinglish-help | 28 | Pass | `e6facaef-31fc-43e5-9fde-0155dafd7931` |
+| female-hindi-close | 8 | Pass | `49ad6136-663b-4a78-94e3-834fe7b668ff` |
+| female-hindi-no-email | 21 | Pass | `2b5e63cb-1b9b-4ddb-9a0d-811fe86ab093` |
