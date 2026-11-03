@@ -14,6 +14,8 @@ Light and dark themes follow the device preference until a visitor chooses one. 
 
 The agent's instructions are in `agent-prompt.md`; the live configuration is in Vapi. The provisioning script uses the existing Vapi CLI login in `~/.vapi-cli.yaml` and preserves the assistant ID on reruns. To change the live prompt, edit the assistant in the Vapi dashboard or patch it through the Vapi API. After changing the prompt, retest its responses.
 
+The current conversation approach, `recruiter-fit-v2`, remembers details within a call, asks about the role's first-ninety-day priorities, and connects one relevant programme to those needs. For equal-pay comparisons with IIMs, it proposes the same hiring bar and role-specific evidence; it does not claim superior performance or retention. Supporting programme sources and role-play scenarios are in `agent-evidence.md`. The first conversation starter on the demo page exercises this objection. The agent's proposed profile review, assessment or follow-up still needs a human placement coordinator to arrange it.
+
 ## Demo facts and limitations
 
 The college name and eight programme capacities were provided by the user. Capacities are not confirmed eligible candidate counts. Both batch timelines are the user's unconfirmed inference and are labelled accordingly. `placements@example.com` and `+91 00000 00000` are explicit sample contacts.

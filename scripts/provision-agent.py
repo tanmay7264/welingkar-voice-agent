@@ -30,7 +30,7 @@ if __name__ == "__main__":
                       "messages": [{"role": "system", "content": (ROOT / "agent-prompt.md").read_text()}],
                       "tools": [{"type": "endCall"}]},
             "transcriber": {"provider": "deepgram", "model": "nova-3", "language": "multi"},
-            "firstMessage": "Hello, I'm Aanya, an AI assistant for the Welingkar Mumbai placement team. We'd love to explore campus recruitment with your company. Is this a good time for a quick conversation?",
+            "firstMessage": "Hi, I'm Aanya, the AI outreach assistant for Welingkar Mumbai. I'd love to understand what your team looks for in a management graduate. Is now a good time for one quick question?",
             "firstMessageInterruptionsEnabled": True,
             "maxDurationSeconds": 300,
             "silenceTimeoutSeconds": 30,
