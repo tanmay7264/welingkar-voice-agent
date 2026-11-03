@@ -9,3 +9,11 @@
 - All 16 existing voice-control/theme regression tests pass; static build passes. Unique IDs, required Vapi control elements and all relative asset paths were checked.
 - Mobile CSS includes a collapsing sidebar, stacked panels, narrow-header controls, reduced-width microphone bars, and a 320px fallback. Browser viewport override/emulation was unavailable in this session, so phone rendering has not been visually verified.
 - Existing live assistant instructions, short replies, feminine Hindi grammar and call-ending/error behavior remain unchanged by this UI update.
+
+
+## Candidate360 integration — 4 November 2026
+
+- Sidebar Batch Profile and resource card both load https://tanmay7264.github.io/candidate360/ in a titled iframe inside the wide native dialog.
+- Browser verified the remote dashboard content, fictional-data notice, full-page link opening the correct URL in a new tab, and dark-theme panel. The remote dashboard keeps its own styling.
+- Closing removes the iframe and restores focus to its trigger. No parent navigation or voice control handler is invoked. No live call was placed for this integration-only change.
+- Build and all 16 voice/theme regression tests pass. Phone viewport override remains unavailable; the dialog uses responsive width and dvh constraints.

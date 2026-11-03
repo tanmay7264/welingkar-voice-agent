@@ -23,6 +23,7 @@ function openPanel(name, trigger) {
   const template = document.getElementById(`content-${name}`);
   if (!template) return;
   returnFocus = trigger.closest('.sidebar') && window.matchMedia('(max-width:850px)').matches ? menu : trigger;
+  dialog.classList.toggle('batch-dialog', name === 'batch');
   title.textContent = titles[name];
   content.replaceChildren(template.content.cloneNode(true));
   if (name === 'conversations') {
@@ -48,6 +49,7 @@ function openPanel(name, trigger) {
 
 document.querySelectorAll('[data-panel]').forEach(button=>button.addEventListener('click',()=>openPanel(button.dataset.panel,button)));
 dialog.addEventListener('close',()=>{
+  content.replaceChildren();
   document.querySelectorAll('.nav-item').forEach(button=>button.classList.toggle('active',button.dataset.panel==='voice'));
   returnFocus?.focus({preventScroll:true});
 });
