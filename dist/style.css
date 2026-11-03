@@ -15,3 +15,5 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media(max-width:620px){.voice-panel:has(.connected) .audio-bars{display:none}}
 @media(max-width:360px){.app-header{gap:7px}.header-product{padding-left:9px}.header-product .product-wave{display:none}.header-product strong{font-size:14px}.experience-tab:disabled{display:none}.audio-bars{max-width:60px;gap:3px}.voice-panel-bottom{flex-wrap:wrap}.voice-panel-bottom>span{flex-basis:43%}.voice-panel-bottom>a{flex-basis:100%}}
+/* Error recovery copy can expand without clipping the controls. */
+.voice-panel:has(.error:not([hidden])){height:auto}
