@@ -12,12 +12,14 @@ let interim;
 let callId;
 let transcript = [];
 let lastTranscript = '';
+let startPending = false;
+let startError;
 
 function setState(next) {
   state = next;
   const connected = next === 'connected';
   ui.start.hidden = connected;
-  ui.start.disabled = next === 'connecting' || next === 'ending';
+  ui.start.disabled = startPending || next === 'connecting' || next === 'ending';
   ui['start-label'].textContent = next === 'connecting' ? 'Connecting…' : next === 'ending' ? 'Ending call…' : transcript.length ? 'Start another conversation' : 'Talk to Aanya';
   ui.end.hidden = !connected;
   ui.mute.hidden = !connected;
@@ -46,25 +48,30 @@ function endLocally() {
 }
 
 ui.start.addEventListener('click', async () => {
-  if (state === 'connecting' || state === 'connected' || state === 'ending') return;
+  if (startPending || state === 'connecting' || state === 'connected' || state === 'ending') return;
   ui.error.hidden = true;
   if (!navigator.mediaDevices?.getUserMedia) {
     showError('Microphone access is unavailable. Open this demo in a current browser using its HTTPS link.');
     return;
   }
+  startPending = true;
+  startError = undefined;
   setState('connecting');
   ui['voice-status'].textContent = 'Allow microphone access when your browser asks. Headphones help keep the conversation clear.';
   try {
     const call = await vapi.start(config.assistantId);
     if (call === null) {
       endLocally();
-      showError(ui.error.hidden ? callErrorMessage(null) : ui.error.textContent);
+      showError(callErrorMessage(startError));
       return;
     }
     callId = call?.id;
   } catch (error) {
     endLocally();
-    if (ui.error.hidden) showError(callErrorMessage(error));
+    showError(callErrorMessage(startError ?? error));
+  } finally {
+    startPending = false;
+    ui.start.disabled = state === 'connecting' || state === 'ending';
   }
 });
 
@@ -79,6 +86,7 @@ vapi.on('call-start-progress', ({stage, status}) => {
 });
 
 vapi.on('call-start', () => {
+  ui.error.hidden = true;
   transcript = [];
   lastTranscript = '';
   interim = null;
@@ -112,6 +120,8 @@ vapi.on('speech-end', () => {
 vapi.on('call-end', endLocally);
 vapi.on('error', (error) => {
   if (error?.type === 'audio-processing-setup-error') return;
+  // The SDK cleans up asynchronously after join errors; wait before allowing retry.
+  if (startPending) { startError = error; return; }
   if (state === 'ending') { endLocally(); return; }
   endLocally();
   showError(callErrorMessage(error));

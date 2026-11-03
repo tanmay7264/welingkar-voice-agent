@@ -20,7 +20,7 @@ test('unsupported 3D rendering keeps the decorative fallback without throwing',(
   assert.equal(fallbackRetained,true);
 });
 
-function setup({noMic=false,reject=false}={}) {
+function setup({noMic=false,reject=false,startImpl}={}) {
   class Element {
     constructor() {this.children=[];this.listeners={};this.attributes={};this.classList={toggle(){},add(){},remove(){}};this.hidden=false;}
     addEventListener(name,fn){this.listeners[name]=fn;}
@@ -36,7 +36,7 @@ function setup({noMic=false,reject=false}={}) {
   class Vapi {
     constructor(){client=this;this.events={};this.starts=0;this.muted=false;}
     on(name,fn){this.events[name]=fn;}
-    async start(){this.starts++;if(reject)throw new Error('test connection failure');return{id:'test-call'};}
+    async start(){this.starts++;if(startImpl)return startImpl(this);if(reject)throw new Error('test connection failure');return{id:'test-call'};}
     stop(){this.events['call-end']();}
     isMuted(){return this.muted;}
     setMuted(value){this.muted=value;}
@@ -90,6 +90,32 @@ test('nested microphone errors remain actionable and optional audio processing e
   client.events['call-start']();
   client.events.error({type:'audio-processing-setup-error',error:{message:'Krisp initialization canceled'}});
   assert.equal(el('end').hidden,false);
+});
+
+test('join failure keeps retry locked until SDK cleanup finishes and preserves its cause',async()=>{
+  let finish;
+  const {client,el}=setup({startImpl:()=>new Promise(resolve=>{finish=resolve;})});
+  const attempt=el('start').listeners.click();
+  client.events.error({type:'daily-call-join-error',error:{message:'WebSocket connection timed out'}});
+  client.events['call-end']();
+  assert.equal(el('start').disabled,true);
+  await el('start').listeners.click();
+  assert.equal(client.starts,1);
+  finish(null);
+  await attempt;
+  assert.equal(el('start').disabled,false);
+  assert.match(el('error').textContent,/outside the in-app browser/);
+  assert.doesNotMatch(el('error').textContent,/assistant is available/);
+});
+
+test('recovered start clears stale errors and billing takes priority over transport wrapper',async()=>{
+  assert.match(callErrorMessage({type:'daily-error',error:{message:'402 credit limit'}}),/billing or credit limit/);
+  const {client,el}=setup();
+  await el('start').listeners.click();
+  client.events.error({type:'daily-error',error:{message:'network connection failed'}});
+  assert.equal(el('error').hidden,false);
+  client.events['call-start']();
+  assert.equal(el('error').hidden,true);
 });
 
 test('unsupported microphone and connection failures leave an actionable retry state',async()=>{
