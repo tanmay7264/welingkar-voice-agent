@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "esbuild src/app.js src/visual.js --bundle --minify --format=esm --outdir=dist",
-    "test": "node --test scripts/demo.test.mjs"
+    "build": "esbuild src/app.js src/visual.js src/theme.js --bundle --minify --format=esm --outdir=dist",
+    "test": "node --test scripts/*.test.mjs"
   },
   "dependencies": {
     "@vapi-ai/web": "latest",

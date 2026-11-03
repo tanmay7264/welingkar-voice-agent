@@ -63,6 +63,16 @@ function mountVisual() {
     camera.updateProjectionMatrix();
     renderer.render(scene, camera);
   }
+  function applyTheme() {
+    const lightTheme = document.documentElement.dataset.theme === 'light';
+    chrome.color.set(lightTheme ? 0x7188a4 : 0x8bbfc8);
+    ringMaterial.color.set(lightTheme ? 0x587c60 : 0x91f2df);
+    ringMaterial.emissive.set(lightTheme ? 0x203e31 : 0x207f76);
+    renderer.toneMappingExposure = lightTheme ? 1.1 : 1.5;
+    renderer.render(scene, camera);
+  }
+  const themeObserver = new MutationObserver(applyTheme);
+  themeObserver.observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
   const sizeObserver = new ResizeObserver(resize);
   sizeObserver.observe(host);
   const stateObserver = new MutationObserver(() => { speaking = host.classList.contains('speaking'); });
@@ -100,6 +110,7 @@ function mountVisual() {
     renderer.setAnimationLoop(null);
     sizeObserver.disconnect();
     stateObserver.disconnect();
+    themeObserver.disconnect();
     visibilityObserver.disconnect();
     host.removeEventListener('pointermove', pointerMove);
     host.removeEventListener('pointerleave', pointerLeave);
@@ -115,6 +126,7 @@ function mountVisual() {
   canvas.addEventListener('webglcontextlost', dispose, {once:true});
   window.addEventListener('pagehide', dispose, {once:true});
   resize();
+  applyTheme();
   renderer.setAnimationLoop(frame);
   host.classList.add('webgl-ready');
 }

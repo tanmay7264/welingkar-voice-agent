@@ -10,6 +10,8 @@ Use Node.js 22.14 or later. Run `npm ci`, `npm test`, and `npm run build`. Serve
 
 The decorative Three.js scene is built separately as `dist/visual.js`; voice controls continue to use `dist/app.js`. The 3D sculpture reacts to the existing assistant speech state, respects reduced-motion preferences, and pauses rendering outside the viewport or in hidden tabs. A CSS sphere remains visible when WebGL is unavailable. No microphone is accessed by the visual layer.
 
+Light and dark themes follow the device preference until a visitor chooses one. The switch stores that choice locally when browser storage is available. The early-loading `theme.js` sets the theme before styles render; the 3D scene adapts to both themes. The official WeSchool logo and Mumbai campus photograph are kept locally with their source URLs in `dist/assets/SOURCES.md`.
+
 The agent's instructions are in `agent-prompt.md`; the live configuration is in Vapi. The provisioning script uses the existing Vapi CLI login in `~/.vapi-cli.yaml` and preserves the assistant ID on reruns. To change the live prompt, edit the assistant in the Vapi dashboard or patch it through the Vapi API. After changing the prompt, retest its responses.
 
 ## Demo facts and limitations
