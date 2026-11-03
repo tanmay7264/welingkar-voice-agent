@@ -22,7 +22,7 @@ test('theme follows the device initially and remembers an explicit choice across
   assert.equal(page.buttons[1].attributes['aria-pressed'],'true');
   page.buttons[0].listeners.click();
   assert.equal(page.root.dataset.theme,'light');
-  assert.equal(page.meta.content,'#f7f7f2');
+  assert.equal(page.meta.content,'#f7f8fd');
   assert.equal(page.storage.get('campus-connect-theme'),'light');
   page.media.changed({matches:true});
   assert.equal(page.root.dataset.theme,'light');

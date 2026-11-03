@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "esbuild src/app.js src/visual.js src/theme.js --bundle --minify --format=esm --outdir=dist",
+    "build": "esbuild src/app.js src/visual.js src/theme.js src/dashboard.js --bundle --minify --format=esm --outdir=dist",
     "test": "node --test scripts/*.test.mjs"
   },
   "dependencies": {

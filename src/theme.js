@@ -9,7 +9,7 @@
   function apply(theme) {
     root.dataset.theme = theme;
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'light' ? '#f7f7f2' : '#080d15');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f7f8fd' : '#101326');
     document.querySelectorAll('[data-theme-choice]').forEach(button => {
       button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme));
     });
