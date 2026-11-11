@@ -1,4 +1,4 @@
-# Campus Connect — Welingkar Mumbai voice demo
+# Campus Connect — Welingkar Mumbai voice Agent
 
 A browser voice demo backed by the placement outreach assistant in the user's Vapi account. No outbound phone calls, email delivery or calendar booking is configured.
 
