@@ -3,14 +3,21 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "esbuild src/app.js src/visual.js src/theme.js src/dashboard.js --bundle --minify --format=esm --outdir=dist",
-    "test": "node --test scripts/*.test.mjs"
+    "build": "esbuild src/app.js src/visual.js src/theme.js src/dashboard.js --bundle --minify --format=esm --outdir=dist && node scripts/build-batch-profile.mjs",
+    "test": "node --test scripts/*.test.mjs",
+    "astryx": "node node_modules/@astryxdesign/cli/clients/cli/bin/astryx.mjs"
   },
   "dependencies": {
+    "@astryxdesign/core": "^0.7.13",
+    "@astryxdesign/theme-matcha": "^0.7.13",
+    "@stylexjs/stylex": "^0.19.1",
     "@vapi-ai/web": "3.1.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "three": "0.187.0"
   },
   "devDependencies": {
+    "@astryxdesign/cli": "^0.7.13",
     "esbuild": "^0.25.0"
   }
 }

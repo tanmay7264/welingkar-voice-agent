@@ -20,10 +20,13 @@ function openPanel(name, trigger) {
     document.getElementById('start').focus({preventScroll:true});
     return;
   }
+  if (name === 'batch') {
+    window.location.assign(new URL('./batch-profile/', window.location.href).href);
+    return;
+  }
   const template = document.getElementById(`content-${name}`);
   if (!template) return;
   returnFocus = trigger.closest('.sidebar') && window.matchMedia('(max-width:850px)').matches ? menu : trigger;
-  dialog.classList.toggle('batch-dialog', name === 'batch');
   title.textContent = titles[name];
   content.replaceChildren(template.content.cloneNode(true));
   if (name === 'conversations') {
